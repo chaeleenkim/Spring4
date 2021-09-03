@@ -19,7 +19,7 @@
 					<th>Number</th><th>Title</th><th>Writer</th><th>Register date</th><th>Hits</th>
 				</tr>
 				
-				<c:forEach items="list" var="dto">
+				<c:forEach items="${list}" var="dto">
 					<tr>
 						<td>${dto.num}</td>
 						<td>${dto.title}</td>
@@ -30,6 +30,8 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+			<a href="./insert" class="btn btn-info">WRITE</a>
 		</div>
 	</div>
 
