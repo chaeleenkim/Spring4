@@ -22,7 +22,7 @@
 				<c:forEach items="${list}" var="dto">
 					<tr>
 						<td>${dto.num}</td>
-						<td>${dto.title}</td>
+						<td><a href="./select?num=${dto.num}">${dto.title}</a></td>
 						<td>${dto.writer }</td>
 						<td>${dto.regdate}</td>
 						<td>${dto.hits}</td>
@@ -31,7 +31,13 @@
 				</c:forEach>
 			</table>
 			
+			<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="n">
+				<a href="./list?pn=${n}">${n}</a>
+				
+			</c:forEach>
+			
 			<a href="./insert" class="btn btn-info">WRITE</a>
+			
 		</div>
 	</div>
 

@@ -6,18 +6,40 @@
   
   <mapper namespace="com.iu.s4.notice.NoticeDAO">
   
-  	  <insert id="setInsert" parameterType="com.iu.s4.notice.NoticeDTO">
-  	  	INSERT INTO NOTICE (num, title, contents, writer, regdate, hits)
-  	  	VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, sysdate, 0)
-  	  </insert>
+  	<update id="setUpdate" parameterType="com.iu.s4.notice.NoticeDTO">
+  		update notice set
+  		title = #{title},
+  		contents = #{contents},
+  		writer = #{writer}
+  		where num = #{num}
+  	</update>
+  	  
+	<delete id="setDelete" parameterType="com.iu.s4.notice.NoticeDTO">
+		delete notice where num = #{num}
+	</delete>	
+		
   
-	  <select id="getList" resultType="com.iu.s4.notice.NoticeDTO">
-	  	SELECT * FROM NOTICE
-	  </select>
+	<insert id="setInsert" parameterType="com.iu.s4.notice.NoticeDTO">
+		INSERT INTO NOTICE (num, title, contents, writer, regdate, hits)
+		VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, sysdate, 0)  	  	
+	</insert>
+  
+	<select id="getList" resultType="com.iu.s4.notice.NoticeDTO" parameterType="com.iu.s4.util.Pager">
+	  	
+		select * from
+			(select rownum R, NT.* from 
+				(select * 
+				from notice 
+				order by num desc
+				) 
+			NT
+			)
+		where R between #{startRow} and #{lastRow}
+	</select>
 	  
-	  <select id="getSelect" parameterType="com.iu.s4.notice.NoticeDTO" resultType="com.iu.s4.notice.NoticeDTO">
-	  	SELECT * FROM NOTICE WHERE NUM = #{num}
-	  </select>
+	<select id="getSelect" parameterType="com.iu.s4.notice.NoticeDTO" resultType="com.iu.s4.notice.NoticeDTO">
+		SELECT * FROM NOTICE WHERE NUM = #{num}
+	</select>
   	
   </mapper>
   
