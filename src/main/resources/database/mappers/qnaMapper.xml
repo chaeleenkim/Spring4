@@ -5,8 +5,50 @@
   
   <mapper namespace="com.iu.s4.board.qna.QnaDAO">
   
-  	<select id="getList" resultType="QnaDTO">
-  		select * from qna
+  	<select id="getCount" parameterType="Pager" resultType="Long">
+  		SELECT COUNT(NUM) FROM QNA
+  		WHERE
+  		<choose>
+				<when test="kind == 'num'">
+					num
+				</when>
+				
+				<when test="kind == 'title'">
+					title
+				</when>
+				
+				<otherwise>
+       				writer
+       			</otherwise>
+				</choose>
+			
+		LIKE '%' || #{search} || '%'
+  	
+  	</select>
+  
+  	<select id="getList" resultType="QnaDTO" parameterType="Pager">
+  		SELECT * FROM 
+		(SELECT ROWNUM R, Q.* FROM
+		(SELECT * FROM QNA
+		WHERE
+			<choose>
+				<when test="kind == 'num'">
+					num
+				</when>
+				
+				<when test="kind == 'title'">
+					title
+				</when>
+				
+				<otherwise>
+       				writer
+       			</otherwise>
+			</choose>
+				
+		LIKE '%'|| #{search} || '%'
+		
+		ORDER BY NUM DESC) Q)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	
   
