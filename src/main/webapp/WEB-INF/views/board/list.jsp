@@ -11,7 +11,7 @@
 <body>
 	<c:import url="../temp/boot_nav.jsp"></c:import>
 	
-	<h1>${board} List Page</h1>
+	<h1>List Page</h1>
 
 <div class="col-md-7 my-2 mx-auto">	
 		<!-- search Form Start-->
@@ -46,7 +46,15 @@
 	  	<c:forEach items="${list}" var="dto">
 		    <tr>
 		      <th scope="row">${dto.num}</th>
-		      <td><a href="./select?num=${dto.num}">${dto.title}</a></td>
+		      <td><a href="./select?num=${dto.num}">
+		      
+		      <c:catch>
+			      <c:forEach begin="1" end="${dto.depth}">
+			      	--
+			      </c:forEach>
+		      </c:catch>
+		      
+		      ${dto.title}</a></td>
 		      <td>${dto.writer}</td>
 		      <td>${dto.regDate}</td>
 		      <td>${dto.hits}</td>
@@ -55,7 +63,7 @@
 	  </tbody>
 	</table>
 	
-<!-- Pageing -->
+	<!-- Paging -->
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination">
 		    <li class="page-item">
