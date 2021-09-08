@@ -6,40 +6,58 @@
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
   
-  	<update id="setUpdate" parameterType="BoardDTO">
-  		update notice set
-  		title = #{title},
-  		contents = #{contents},
-  		writer = #{writer}
-  		where num = #{num}
-  	</update>
-  	  
-	<delete id="setDelete" parameterType="BoardDTO">
-		delete notice where num = #{num}
-	</delete>	
-		
+  	<select id="getCount" resultType="Long" parameterType="Pager">
+  			SELECT COUNT(num) FROM NOTICE
+  			
+  			<if test="kind == 'k1'">WHERE title LIKE '%' || #{search} || '%'</if>
+  			<if test="kind == 'k2'">WHERE contents LIKE '%' || #{search} || '%'</if>
+  			<if test="kind == 'k3'">WHERE writer LIKE '%' || #{search} || '%'</if>
+  			
+  			
+  		</select>
   
-	<insert id="setInsert" parameterType="BoardDTO">
-		INSERT INTO NOTICE (num, title, contents, writer, regdate, hits)
-		VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{contents}, #{writer}, sysdate, 0)  	  	
-	</insert>
   
-	<select id="getList" resultType="NoticeDTO" >
-	  	
-		select * from
-			(select rownum R, NT.* from 
-				(select * 
-				from notice 
-				order by num desc
-				) 
-			NT
-			)
+		<select id="getList" resultType="NoticeDTO" parameterType="Pager">
+			SELECT * FROM
+			(SELECT ROWNUM R, BK.* FROM
+				(SELECT * FROM NOTICE
+				 WHERE 
+				 	<choose>
+				 		<when test="kind=='k1'">
+				 			title
+				 		</when>
+				 		<when test="kind=='k2'">
+				 			contents
+				 		</when>
+				 		<otherwise>
+				 			writer
+				 		</otherwise>
+				 	</choose>
+				 	LIKE '%' || #{search} || '%'
+				  	
+			ORDER BY NUM DESC)BK)
+			WHERE R BETWEEN #{startRow} and #{lastRow}
+			
+		</select>
 		
-	</select>
-	  
-	<select id="getSelect" parameterType="BoardDTO" resultType="NoticeDTO">
-		SELECT * FROM NOTICE WHERE NUM = #{num}
-	</select>
+		<select id="getSelect" parameterType="BoardDTO" resultType="NoticeDTO">
+			SELECT * FROM NOTICE WHERE NUM=#{num}
+		</select>
+	
+		<insert id="setInsert" parameterType="BoardDTO">
+			INSERT INTO NOTICE(NUM,TITLE,CONTENTS,WRITER,REGDATE,HITS)
+			VALUES(NOTICE_SEQ.NEXTVAL,#{title},#{contents},#{writer},SYSDATE,0)
+		</insert>
+	
+		<delete id="setDelete" parameterType="BoardDTO">
+			DELETE FROM NOTICE WHERE NUM=#{num}
+		</delete>
+		
+		<update id="setUpdate" parameterType="BoardDTO">
+			UPDATE NOTICE SET TITLE=#{title},CONTENTS=#{contents},WRITER=#{writer} 
+			WHERE NUM=#{num}
+		</update>
+
   	
   </mapper>
   
