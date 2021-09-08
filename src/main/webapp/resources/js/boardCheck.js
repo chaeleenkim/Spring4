@@ -2,11 +2,17 @@
  * 
  */
  
-let bt1 = document.getElementById("bt1");
+const btn = document.getElementById("btn");
 
-fn1 = function () {
-	alert("insert contents");
-}
+btn.addEventListener("click", function(){
+	const title = document.getElementById("title");
+	const writer = document.getElementById("writer");
+	
+	let t = title.value;
+	let w = writer.getAttribute("value");
+	
+	alert(t);
+	alert(w);
+	
+});
 
-
-bt1.addEventListener(fn1);
