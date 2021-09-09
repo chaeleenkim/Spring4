@@ -47,11 +47,6 @@
 		    <tr>
 		      <th scope="row">${dto.num}</th>
 		      <td><a href="./select?num=${dto.num}">
-		      
-		      <c:forEach begin="1" end="${dto.depth}">
-		      	--
-		      </c:forEach>
-		      
 		      ${dto.title}</a></td>
 		      <td>${dto.writer}</td>
 		      <td>${dto.regDate}</td>
