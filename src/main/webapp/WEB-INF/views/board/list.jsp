@@ -46,7 +46,14 @@
 	  	<c:forEach items="${list}" var="dto">
 		    <tr>
 		      <th scope="row">${dto.num}</th>
-		      <td><a href="./select?num=${dto.num}">
+		       <td><a href="./select?num=${dto.num}">
+		      
+		      <c:catch>
+			     <c:forEach begin="1" end="${dto.depth}">
+			     	--
+			     </c:forEach>
+		      </c:catch>
+		      
 		      ${dto.title}</a></td>
 		      <td>${dto.writer}</td>
 		      <td>${dto.regDate}</td>
