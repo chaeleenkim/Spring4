@@ -6,7 +6,7 @@
   <mapper namespace="com.iu.s4.board.qna.QnaDAO">
   	
   	<update id="setHitUpdate" parameterType="BoardDTO">
-  		update notice set hits=hits+1 where num = #{num}
+  		update qna set hits=hits+1 where num = #{num}
   	</update>
   	
   	<select id="getCount" resultType="Long" parameterType="Pager">
