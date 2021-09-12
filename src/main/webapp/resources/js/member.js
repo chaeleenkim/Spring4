@@ -7,7 +7,8 @@ const checks = document.getElementsByClassName('checks');
 const btn = document.getElementById('btn');
 const ch = document.getElementsByClassName('ch');
 
-//Join 필수 약관 동의----------------------------------------
+
+//check 필수 약관 동의----------------------------------------
 btn.addEventListener('click', function(){
 	let result = true;
 	
@@ -29,7 +30,7 @@ btn.addEventListener('click', function(){
 
 
 
-//Join 모든 약관 동의-----------------------------------------
+//check 모든 약관 동의-----------------------------------------
 /*btn.addEventListener('click', function(){
 	if(all.checked){
 		location.href="./join";
@@ -47,7 +48,7 @@ btn.addEventListener('click', function(){
 	}
 });
 
-//약관 모두 클릭-----------------------------------------------
+//check 약관 모두 클릭----------------------------------------
 for(let ch of checks){
 	ch.addEventListener('click', function(){
 		let result = true;

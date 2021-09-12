@@ -6,6 +6,10 @@
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
   
+  	<update id="setHitUpdate" parameterType="BoardDTO">
+  		update notice set hits=hits+1 where num = #{num}
+  	</update>
+  	
   	<select id="getCount" resultType="Long" parameterType="Pager">
   			SELECT COUNT(num) FROM NOTICE
   			

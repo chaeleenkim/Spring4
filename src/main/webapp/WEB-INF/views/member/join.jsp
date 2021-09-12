@@ -16,40 +16,46 @@
 <div class="container-fluid">
 	
 	
-		<form class="col-md-6 mx-auto" action="./join" method="post">
+		<form id="frm" class="col-md-6 mx-auto" action="join" method="post">
 		  <div class="mb-3">
 		    <label for="exampleInputPassword1" class="form-label">Id</label>
-		    <input type="text" class="form-control" id="exampleInputPassword1">
+		    <input type="text" class="form-control put" id="id">
+		    <button id="idCheck" type="button">ID중복확인</button>
+		  	<div id="idResult"></div>
 		  </div>
+		  
 		  <div class="mb-3">
 		    <label for="exampleInputPassword1" class="form-label">Password</label>
-		    <input type="password" class="form-control" id="exampleInputPassword1">
+		    <input type="password" class="form-control put pw" id="pw1">
 		  </div>
 		    <div class="mb-3">
-		    <label for="exampleInputPassword1" class="form-label">Cofirm Password</label>
-		    <input type="password" class="form-control" id="exampleInputPassword1">
+		    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+		    <input type="password" class="form-control put pw" id="pw2">
 		  </div>
+		  <div id="pwResult"></div>
+		  
 		  <div class="mb-3">
 		    <label for="exampleInputPassword1" class="form-label">Name</label>
-		    <input type="text" class="form-control" id="exampleInputPassword1">
+		    <input type="text" class="form-control put" id="name">
 		  </div>
 		  <div class="mb-3">
 		    <label for="exampleInputPassword1" class="form-label">Phone</label>
-		    <input type="tel" class="form-control" id="exampleInputPassword1">
+		    <input type="tel" class="form-control put" id="phone">
 		  </div>
+		  
 		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Email address</label>
-		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		    <input type="email" class="form-control put" id="email" aria-describedby="emailHelp">
 		    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
 		  </div>
 		 
-		  <button type="submit" class="btn btn-primary">Submit</button>
+		  <button type="button" id="btn" class="btn btn-primary">Join</button>
 		</form>
 
 </div>
 
 <!-- end form -->
 
-
+<script type="text/javascript" src="../resources/js/join.js"></script>
 </body>
 </html>

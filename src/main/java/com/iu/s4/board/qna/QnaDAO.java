@@ -12,7 +12,7 @@ import com.iu.s4.util.Pager;
 
 @Repository
 public class QnaDAO implements BoardDAO{
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.iu.s4.board.qna.QnaDAO.";
@@ -33,6 +33,12 @@ public class QnaDAO implements BoardDAO{
 	public BoardDTO getSelect(BoardDTO boardDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NAMESPACE+"getSelect", boardDTO);
+	}
+	
+	@Override
+	public int setHitUpdate(BoardDTO boardDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setHitUpdate", boardDTO);
 	}
 
 	@Override
