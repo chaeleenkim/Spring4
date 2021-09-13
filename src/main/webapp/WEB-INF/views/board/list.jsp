@@ -96,8 +96,9 @@
 		  </ul>
 		</nav>
 	
-	
-	 <a href="./insert" class="btn btn-secondary">ADD</a>
+	<c:if test="${not empty member}">
+		<a href="./insert" class="btn btn-secondary">ADD</a>
+	</c:if>
 </div>	
 	
 	
