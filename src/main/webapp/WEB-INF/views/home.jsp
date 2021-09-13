@@ -24,9 +24,17 @@
 		<h3>Login을 하기 전 보이는 문장</h3>
 	</c:if>
 
-
-<script type="text/javascript">
-	console.log('body Script');
-</script>
+	<button id="btn">CLICK</button>
+		
+	<script type="text/javascript">
+		
+		//jQuery로 단축
+		/* const btn = document.getElementById("btn");
+		btn.addEvenetListener(); */
+		
+		$("#btn").click(function(){
+			alert('alert');
+		});
+	</script>
 </body>
 </html>
