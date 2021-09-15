@@ -52,9 +52,9 @@
 		<update id="setHitUpdate" parameterType="BoardDTO">
 			update notice set hits= hits+1 where num=#{num}
 		</update>
-		
+	
 		<select id="getFiles" parameterType="BoardDTO" resultType="BoardFilesDTO">
-			select * from noticeFiles where num = #{num}
+			select * from noticefiles where num=#{num}
 		</select>
 
 	
@@ -70,14 +70,11 @@
 			DELETE FROM NOTICE WHERE NUM=#{num}
 		</delete>
 		
-		<delete id="setDeleteFile" parameterType="BoardDTO">
-			DELETE FROM noticeFiles WHERE NUM = #{num}
-		</delete>
-		
 		<update id="setUpdate" parameterType="BoardDTO">
 			UPDATE NOTICE SET TITLE=#{title},CONTENTS=#{contents},WRITER=#{writer} 
 			WHERE NUM=#{num}
 		</update>
+
   	
   </mapper>
   
