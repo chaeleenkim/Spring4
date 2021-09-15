@@ -10,7 +10,7 @@
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
-	<h1>${board}Select Page</h1>
+	<h1>${board} Select Page</h1>
 	
 	<div class="container-fluid">
 		<h3>NUM:${dto.num}</h3>
@@ -20,7 +20,13 @@
 		<h3>DATE:${dto.regDate}</h3>
 		<h3>HITS:${dto.hits}</h3>
 	
-	<c:if test="${not empty member.id eq dto.writer}">
+	<c:forEach items="${fileList}" var="f">
+		<div>
+			<img alt="" src="../resources/upload/${board}/${f.fileName}">
+		</div>
+	</c:forEach>	
+
+	<c:if test="${not empty member and member.id eq dto.writer}">
 		<a href="./delete?num=${dto.num}">DELETE</a>
 		<a href="./update?num=${dto.num}">UPDATE</a>
 	</c:if>

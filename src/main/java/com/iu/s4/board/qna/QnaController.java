@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.board.BoardDTO;
+import com.iu.s4.board.BoardFilesDTO;
 import com.iu.s4.util.Pager;
 
 @Controller
@@ -46,6 +48,8 @@ public class QnaController {
 	public ModelAndView getSelect(BoardDTO boardDTO) throws Exception  {
 		ModelAndView mv = new ModelAndView();
 		boardDTO = qnaService.getSelect(boardDTO);
+		List<BoardFilesDTO> ar = qnaService.getFiles(boardDTO);
+		mv.addObject("fileList",ar);
 		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/select");
 		
@@ -60,9 +64,9 @@ public class QnaController {
 	}
 	
 	@PostMapping("insert")
-	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception{
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = qnaService.setInsert(boardDTO);
+		int result = qnaService.setInsert(boardDTO, files);
 		mv.setViewName("redirect:./list");
 		
 		return mv;
