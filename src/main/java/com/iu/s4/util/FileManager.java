@@ -16,6 +16,11 @@ public class FileManager {
 	@Autowired
 	private ServletContext servletContext;
 	
+	//파일삭제
+	public void fileDelete() throws Exception {
+		
+	}
+	
 	//fileSave 
 	//파일 저장
 	public String fileSave(MultipartFile multipartFile, File file) throws Exception {
