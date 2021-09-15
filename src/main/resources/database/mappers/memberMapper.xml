@@ -5,6 +5,15 @@
   
   <mapper namespace="com.iu.s4.member.MemberDAO">
   
+  	<select id="getFile" parameterType="MemberDTO" resultType="MemberFilesDTO">
+  		SELECT * FROM MEMBERFILES WHERE id = #{id}
+  	</select>
+  	
+  	<insert id="setFileInsert" parameterType="MemberFilesDTO">
+  		INSERT INTO MEMBERFILES (num, id, fileName, oriName)
+  		VALUES (files_seq.nextval, #{id}, #{fileName}, #{oriName})
+  	</insert>
+  
   	<update id="setUpdate" parameterType="MemberDTO">
   		UPDATE MEMBER SET PW =#{pw}, PHONE=#{phone}, EMAIL=#{email} WHERE ID = #{id}
   	</update>

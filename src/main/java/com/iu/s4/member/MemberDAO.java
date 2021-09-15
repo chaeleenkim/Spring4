@@ -11,12 +11,20 @@ public class MemberDAO {
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.iu.s4.member.MemberDAO.";
 	
+	public MemberFilesDTO getFile(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getFile", memberDTO);
+	}
+	
 	public int setUpdate(MemberDTO memberDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"setUpdate", memberDTO);
 	}
 	
 	public int setDelete(MemberDTO memberDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE+"setDelete", memberDTO);
+	}
+	
+	public int setFileInsert(MemberFilesDTO memberFilesDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"setFileInsert", memberFilesDTO);
 	}
 	
 	public int setJoin(MemberDTO memberDTO) throws Exception {
