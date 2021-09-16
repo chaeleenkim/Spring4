@@ -17,8 +17,8 @@ public class FileManager {
 	private ServletContext servletContext;
 	
 	//파일삭제
-	public void fileDelete() throws Exception {
-		
+	public void fileDelete(File file) throws Exception {
+		file.delete();
 	}
 	
 	//fileSave 
