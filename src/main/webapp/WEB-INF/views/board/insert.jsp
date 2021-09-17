@@ -6,7 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<c:import url="../temp/boot_head.jsp"></c:import>
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<style type="text/css">
+	$('document').ready()
+</style>
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
@@ -27,8 +39,8 @@
 		  </div>
 		  
 		  <div class="mb-3">
-		   <label for="exampleFormControlTextarea1" class="form-label">Contents</label>
-  			<textarea class="form-control" cols=""  name="contents" id="exampleFormControlTextarea1" rows="6"></textarea>
+		   <label for="contents" class="form-label">Contents</label>
+  			<textarea class="form-control" cols=""  name="contents" id="contents" rows="6"></textarea>
 		  </div>
 		 <!-- button 추가 -->
 		 <button type="button" id="fileAdd" class="btn btn-primary">FileADD</button>
@@ -50,6 +62,8 @@
 	//코드작성 금지
 </script>
 <script type="text/javascript">
+	$('#contents').summernote();
+	
 	$("#d1").click(function () {
 		alert('d1');
 	});
