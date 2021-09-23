@@ -6,10 +6,22 @@
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
   
-  	<select id="getCommentList" parameterType="CommentsDTO" resultType="CommentsDTO">
-  		select * from comments
-  		where board = #{board} and num=#{num}
-  		order by commentnum desc
+  	<delete id="setCommentDelete" parameterType="CommentsDTO">
+  		delete comments where commentNum = #{commentNum}
+  	</delete>
+  
+  	<select id="getCommentCount" parameterType="CommentsDTO" resultType="Long">
+  		select count(commentNum) from comments 
+  		where board=#{board} and num = #{num}
+  	</select>
+  
+  	<select id="getCommentList" parameterType="Map" resultType="CommentsDTO">
+  		SELECT * FROM 
+	  		(SELECT rowNum R, C.* from 
+		  		(select * from comments
+		  		where board = #{comments.board} and num=#{comments.num}
+		  		order by commentNum desc) C)
+		WHERE R between #{pager.startRow} and #{pager.lastRow}
   	</select>
   
   	<insert id="setComment" parameterType="CommentsDTO">

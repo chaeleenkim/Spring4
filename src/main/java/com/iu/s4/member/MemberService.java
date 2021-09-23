@@ -18,7 +18,7 @@ public class MemberService {
 	private MemberDAO memberDAO;
 	@Autowired
 	private HttpSession session;
-	@Autowired
+	//@Autowired
 	private ServletContext servletContext;
 	
 	public MemberFilesDTO getFile(MemberDTO memberDTO) throws Exception {

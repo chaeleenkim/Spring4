@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../temp/boot_head.jsp"></c:import>
+<style type="text/css">
+	.more {
+		cursor: pointer;
+	}
+</style>
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
@@ -70,15 +75,35 @@
 	</div>
 
 <script type="text/javascript">
-
-	getCommentList();
 	
-	function getCommentList() {
+	//처음 호출할 때는 pn 1
+	getCommentList(1);
+	
+	//Del click event
+	$("#commentList").on("click", ".commentDel", function(){
+		let commentNum = $(this).attr("data-comment-del") 
+		console.log(commentNum);
+		//url ./commentDel
+		
+		
+	});
+	
+	$("#commentList").on("click",".more",function(){
+		//data-comment-pn 값을 출력
+		let pn = $(this).attr("data-comment-pn");
+		getCommentList(pn);
+	});
+	
+	
+	function getCommentList(pageNumber) {
 		let num = $("#commentList").attr("data-board-num")
 		$.ajax({
 			type: "GET",
 			url: "./getCommentList",
-			data: {num:num}
+			data: {
+				num: num,
+				pn : pageNumber
+			},
 			success: function(result){
 				result = result.trim();
 				$("#commentList").html(result);
@@ -101,6 +126,7 @@
 			console.log(result.trim());
 			
 			$("#contents").val('');
+			getCommentList();
 		});	
 	});
 
