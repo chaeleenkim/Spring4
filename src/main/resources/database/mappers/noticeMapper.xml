@@ -6,6 +6,17 @@
   
   <mapper namespace="com.iu.s4.board.notice.NoticeDAO">
   
+  	<select id="getCommentList" parameterType="CommentsDTO" resultType="CommentsDTO">
+  		select * from comments
+  		where board = #{board} and num=#{num}
+  		order by commentnum desc
+  	</select>
+  
+  	<insert id="setComment" parameterType="CommentsDTO">
+  		insert into comments values
+  		(comments_seq.nextval, #{num}, #{writer}, #{contents}, sysdate, #{board})
+  	</insert>
+  
   	<insert id="setFile" parameterType="BoardFilesDTO">
   		insert into noticeFiles (fileNum, num, fileName, oriName)
   		values(files_seq.nextval, #{num}, #{fileName}, #{oriName})

@@ -9,15 +9,29 @@ import org.springframework.stereotype.Repository;
 import com.iu.s4.board.BoardDAO;
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.BoardFilesDTO;
+import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.util.Pager;
 
 @Repository
 public class NoticeDAO implements BoardDAO{
 	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE = "com.iu.s4.board.notice.NoticeDAO."; 
+	
+	
+	public List<CommentsDTO> getCommentList(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"getCommentList");
+	}
 
+	
+	//BoardDAO 선언하고 오버라이딩
+	public int setComment(CommentsDTO commentsDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"setComment", commentsDTO);
+	}
+	
+	
 	@Override
 	public Long getCount(Pager pager) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
@@ -65,6 +79,7 @@ public class NoticeDAO implements BoardDAO{
 		return sqlSession.insert(NAMESPACE+"setFile", boardFilesDTO);
 	}
 	
+	//BoardDAO 선언하고 오버라이딩
 	public List<BoardFilesDTO> getFiles(BoardDTO boardDTO) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"getFiles", boardDTO);
 	}

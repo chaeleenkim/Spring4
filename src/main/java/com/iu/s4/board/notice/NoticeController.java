@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.board.BoardDTO;
 import com.iu.s4.board.BoardFilesDTO;
+import com.iu.s4.board.CommentsDTO;
 import com.iu.s4.util.Pager;
 
 @Controller
@@ -25,6 +26,30 @@ public class NoticeController {
 	@ModelAttribute("board")
 	public String getBoard() {
 		return "notice";
+	}
+	
+	@GetMapping("getCommentList")
+	public ModelAndView getCommentList(CommentsDTO commentsDTO) throws Exception {
+		commentsDTO.setBoard("N");
+		List<CommentsDTO> ar = noticeService.getCommentList(commentsDTO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("comments", ar);
+		mv.setViewName("common/ajaxList");
+		
+		return mv;
+	}
+	
+	@PostMapping("comment")
+	public ModelAndView setComment(CommentsDTO commentsDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		commentsDTO.setBoard("N");
+		
+		int result = noticeService.setComment(commentsDTO);
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result);
+		
+		return mv;
+		
 	}
 	
 	@GetMapping("down")
@@ -56,7 +81,11 @@ public class NoticeController {
 		ModelAndView mv = new ModelAndView();
 		boardDTO = noticeService.getSelect(boardDTO);
 		List<BoardFilesDTO> ar = noticeService.getFiles(boardDTO);
-		//mv.addObject("fileList", ar);
+		
+//		List<CommentsDTO> comments = noticeService.getCommentList();
+//		mv.addObject("comments", comments);
+		
+//		mv.addObject("fileList", ar);
 		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/select");
 		

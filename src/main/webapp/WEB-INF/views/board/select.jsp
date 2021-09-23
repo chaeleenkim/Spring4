@@ -10,9 +10,10 @@
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
-	<h1>${board} Select Page</h1>
 	
-	<div class="container-fluid">
+	<div class="container-fluid col-md-8">
+		<h1>${board} Select Page</h1>
+		
 		<h3>NUM:${dto.num}</h3>
 		<h3>Title:${dto.title}</h3>
 		
@@ -31,6 +32,29 @@
 			<a href="./down?fileName=${f.fileName}">${f.oriName}</a>
 		</div>
 	</c:forEach>	
+	
+	<hr>
+	<!-- comment list  -->
+	<div id="commentList" data-board-num="${dto.num}">
+		
+	</div>
+	
+	<!-- 댓글 폼 -->
+	<div>
+		  <div class="mb-3">
+		    <label for="writer" class="form-label">Writer</label>
+		    <input type="text" class="form-control" readonly="readonly" value="${member.id}" name="writer" id="writer" placeholder="Enter Writer">
+		  </div>
+		  
+		  <div class="mb-3">
+		   <label for="contents" class="form-label">Contents</label>
+  			<textarea class="form-control" cols=""  name="contents" id="contents" rows="6"></textarea>
+		  </div>
+		 <!-- button 추가 -->
+		   <button type="button" id="comment" class="btn btn-primary">WRITE</button>
+		   
+	</div>	
+	<hr>
 
 	<c:if test="${not empty member and member.id eq dto.writer}">
 		<a href="./delete?num=${dto.num}">DELETE</a>
@@ -44,7 +68,43 @@
 	
 	
 	</div>
+
+<script type="text/javascript">
+
+	getCommentList();
 	
+	function getCommentList() {
+		let num = $("#commentList").attr("data-board-num")
+		$.ajax({
+			type: "GET",
+			url: "./getCommentList",
+			data: {num:num}
+			success: function(result){
+				result = result.trim();
+				$("#commentList").html(result);
+				
+			},
+			error: function(xhr, status, error){
+				console.log(error);
+			}
+			
+		});
+	
+	}
+	
+	
+	$('#comment').click(function(){
+		//작성자, 내용을 콘솔에 출력
+		let writer = $('#writer').val();
+		let contents = $('#contents').val();
+		$.post('./comment', {num:'${dto.num}',writer:writer, contents:contents}, function(result){
+			console.log(result.trim());
+			
+			$("#contents").val('');
+		});	
+	});
+
+</script>
 	
 
 </body>
