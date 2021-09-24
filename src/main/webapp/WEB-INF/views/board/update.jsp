@@ -31,7 +31,7 @@
 </head>
 <body>
 <c:import url="../temp/boot_nav.jsp"></c:import>
-	<h1>${board}Insert Page</h1>
+	<h1>${board} Update Page</h1>
 
 
 <div class="container-fluid">
@@ -39,7 +39,7 @@
 		<form class="col-md-6 mx-auto" action="./insert" method="post" enctype="multipart/form-data">
 		  <div class="mb-3">
 		    <label for="title" class="form-label">TITLE</label>
-		    <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title">
+		    <input type="text" class="form-control" value="${dto.title}" name="title" id="title" placeholder="Enter Title">
 		  </div>
 		  
 		  <div class="mb-3">
@@ -49,8 +49,22 @@
 		  
 		  <div class="mb-3">
 		   <label for="contents" class="form-label">Contents</label>
-  			<textarea class="form-control" cols=""  name="contents" id="contents" rows="6"></textarea>
+  			<textarea class="form-control" cols=""  name="contents" id="contents" rows="6">${dto.contents}</textarea>
 		  </div>
+		  
+		  <div>
+		  	<c:forEach items="${dto.files}" var="f">
+		  		<div>
+		  			${f.oriName} <span class="fileDelete" data-files-num="${f.fileNum}" data-files-name="${f.fileName}">X</span>
+		  		</div>
+		  	</c:forEach>
+		  </div>
+		  
+		 
+		  <hr>
+		  <hr>
+		  
+		  
 		 <!-- button 추가 -->
 		 <button type="button" id="fileAdd" class="btn btn-primary">FileADD</button>
 		<button type="button" class="del">Delete</button>
@@ -59,26 +73,42 @@
 		</div>	
 		 
 		 	
-		  <button type="submit" class="btn btn-primary">ADD</button>
+		  <button type="submit" class="btn btn-primary">UPDATE</button>
 		</form>
 		
-</div>
-<div id="d1">
-	<button id="c1">CLICK</button>
 </div>
 
 <script type="text/javascript" src="../resources/js/boardFile.js">
 	//코드작성 금지
 </script>
 <script type="text/javascript">
+
+	setCount('${dto.files.size()}');
+
+
+	$(".fileDelete").click(function() {
+			let fileNum = $(this).attr("data-files-num");
+			let fileName = $(this).attr("data-files-name");
+			let selector = $(this);
+			
+			$.ajax({
+				type: "POST",
+				url: "./fileDelete",
+				data: {
+						fileNum : fileNum,
+						fileName : fileName
+				},
+				success: function(result) {
+					console.log(result);
+					selector.parent().remove();
+					updateCount();
+				}
+				
+			});
+		
+	})	
+
 	$('#contents').summernote();
-	$("#d1").click(function () {
-		alert('d1');
-	});
-	
-	$("#c1").click(function() {
-		alert('c1');
-	});
 </script>
 </body>
 </html>
