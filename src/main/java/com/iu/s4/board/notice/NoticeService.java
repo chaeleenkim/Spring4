@@ -30,10 +30,13 @@ public class NoticeService implements BoardService {
 	@Autowired
 	private FileManager fileManager;
 	
-	public int setCommentDelete(CommentsDTO commentsDTO, Pager pager) throws Exception {
-		int result = noticeDAO.setCommentDelete(commentsDTO);
-		this.getCommentList(commentsDTO, pager);
-		return result;
+	public int setCommentUpdate(CommentsDTO commentsDTO) throws Exception {
+		return noticeDAO.setCommentUpdate(commentsDTO);
+	}
+	
+	public int setCommentDelete(CommentsDTO commentsDTO) throws Exception {
+		return noticeDAO.setCommentDelete(commentsDTO);
+		
 	}
 	
 	public List<CommentsDTO> getCommentList(CommentsDTO commentsDTO, Pager pager) throws Exception {

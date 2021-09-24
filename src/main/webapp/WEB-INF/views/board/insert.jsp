@@ -24,7 +24,6 @@
 <c:import url="../temp/boot_nav.jsp"></c:import>
 	<h1>${board} Insert Page</h1>
 
-
 <div class="container-fluid">
 	
 		<form class="col-md-6 mx-auto" action="./insert" method="post" enctype="multipart/form-data" >

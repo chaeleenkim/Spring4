@@ -79,12 +79,91 @@
 	//처음 호출할 때는 pn 1
 	getCommentList(1);
 	
+	//전역변수 전언
+	//let content = '';
+	
+	//Update click event
+	$("#commentList").on("click", ".commentUpdate", function(){
+		let num = $(this).attr("data-comment-update")
+		let content = $("#content"+num).text().trim();
+		$('#content'+num).children().css('display', 'none');
+		let ta = '<textarea class="form-control" cols=""  name="contents" id="contents" rows="">';
+		ta = ta + content.trim() + '</textarea>';
+		ta = ta + '<button type="button" id="" class="btn btn-primary up">update</button>';
+		ta = ta + '<button type="button" id="" class="btn btn-danger can">cancel</button>';
+		$("#content"+num).append(ta);
+	});
+	
+	//update
+	$("#commentList").on('click', '.up', function() {
+		//update 버튼의 바로 앞 이웃 contents의 값
+		let contents = $(this).prev().val();
+		//update 버튼의 부모 contents의 바로 앞 이웃 contentNum의 값
+		let cn = $(this).parent().prev().text().trim();
+		let selector=$(this);
+		$.ajax({
+			type:"POST",
+			url: "./commentUpdate",
+			data:{
+				//필요한 정보 : commentNum, contents
+				commentNum:cn,
+				contents:contents
+			},
+			success:function(result){
+				if(result.trim()>0){
+					alert('수정 성공');
+					//getCommentList(1);
+					
+					//div 태그 내에 넣은 ${comment.contents}에 contents 넣고 다시 보이게 함
+					selector.parent().children('div').text(contents);
+					selector.parent().children('div').css('display', 'block');
+					//textarea와 button은 삭제
+					selector.parent().children('textarea').remove();
+					selector.parent().children('button').remove();
+				}else {
+					alert('수정 실패');
+				}
+			},
+			error:function(){
+				alert('수정 실패');
+			}
+			
+		});
+		
+	});
+	
+	//cancel
+	$("#commentList").on("click", ".can", function() {
+		$(this).parent().children('div').css('display', 'block');
+		$(this).parent().children('textarea').remove();
+		$(this).parent().children('button').remove();
+	})
+	
 	//Del click event
 	$("#commentList").on("click", ".commentDel", function(){
 		let commentNum = $(this).attr("data-comment-del") 
 		console.log(commentNum);
 		//url ./commentDel
-		
+		$.ajax({
+			type: "POST",
+			url: "./commentDel",
+			data: {
+				commentNum:commentNum
+			},
+			success:function(result){
+				result=result.trim();
+				if(result>0){
+					alert("삭제 성공");
+					getCommentList(1);
+				}else {
+					alert("삭제 실패");
+				}
+				
+			},
+			error:function(){
+				alert('삭제에 실패');
+			}
+		});
 		
 	});
 	

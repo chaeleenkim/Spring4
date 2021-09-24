@@ -28,10 +28,24 @@ public class NoticeController {
 		return "notice";
 	}
 	
-	@GetMapping("commentDel")
+	@PostMapping("commentUpdate")
+	public ModelAndView setCommentUpdate(CommentsDTO commentsDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int result = noticeService.setCommentUpdate(commentsDTO);
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result);
+		return mv;
+	}
+	
+	
+	@PostMapping("commentDel")
 	public ModelAndView setCommentDelete(CommentsDTO commentsDTO) throws Exception{
-		noticeService.setCommentDelete(commentsDTO);
+		ModelAndView mv = new ModelAndView();
+		int result = noticeService.setCommentDelete(commentsDTO);
 		
+		mv.setViewName("common/ajaxResult");
+		mv.addObject("result", result);
+		return mv;
 	}
 	
 	@GetMapping("getCommentList")
