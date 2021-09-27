@@ -24,22 +24,62 @@
 		<h3>Login을 하기 전 보이는 문장</h3>
 	</c:if>
 	
-	<h1 id="ar"></h1>
-	
 	<button id="btn">CLICK</button>
-		
+	<div>
+		<h3 id="title"></h3>
+	</div>
+	
+	<div>
+		<table id="r" class="table table-hover">
+			<tr>
+				<td>ID</td>
+				<td>TITLE</td>
+				<td>USERID</td>
+			</tr>
+			
+			
+			
+		</table>
+	</div>
+	
+	
 	<script type="text/javascript">
-		
-		//jQuery로 단축
-		/* const btn = document.getElementById("btn");
-		btn.addEvenetListener(); */
-		
-		$("#btn").click(function(){
-			$.get("./ajax/t1?num=1", function (result) {
-				console.log(result.trim());
-				$('#ar').html(result.trim());
+		$("#btn").click(function() {
+			$.ajax({
+				type:"GET",
+				url:"http://jsonplaceholder.typicode.com/posts",
+				
+				success:function(result){
+					alert(result);
+					console.log(result);
+					console.log(result[0]);
+					console.log(result[0].title);
+					
+					for(v1 of result){
+						let v = "<tr>";
+						v= v+ "<td>";
+						v= v+ v1.id;
+						v= v+"</td>";
+						v= v+"<td>";
+						v= v+v1.title;
+						v= v+"</td>";
+						v= v+"<td>";
+						v= v+v1.userId;
+						v= v+"</td>";
+						v= v+"</tr>";
+						$("#r").append(v);
+					}
+					
+					
+					
+				}
+				
 			});
 		});
 	</script>
+	
+	
+	
+	
 </body>
 </html>
